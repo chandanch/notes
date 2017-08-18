@@ -1,0 +1,16 @@
+{
+    // This is a poorly nested data architecture, because iterating the children
+    // of the "chats" node to get a list of conversation titles requires
+    // potentially downloading hundreds of megabytes of messages
+    "chats": {
+      "one": {
+        "title": "Historical Tech Pioneers",
+        "messages": {
+          "m1": { "sender": "ghopper", "message": "Relay malfunction found. Cause: moth." },
+          "m2": { ... },
+          // a very long list of messages
+        }
+      },
+      "two": { ... }
+    }
+  }

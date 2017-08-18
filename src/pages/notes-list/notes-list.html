@@ -1,9 +1,12 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Notes List</ion-title>
+    <ion-title>Your Notes</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content padding>
-  List of notes
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="createNotes()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
