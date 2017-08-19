@@ -20,9 +20,10 @@ const ionicCloudSettings : CloudSettings = {
     sender_id : '373681691982',
     pluginConfig : {
       'android' : {
+        icon: "notification",
         iconColor : '#387EF5',
         sound : true,
-        vibrate : true
+        vibrate : true,
       }
     }
   }
