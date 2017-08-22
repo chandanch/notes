@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>
+            {{noteTitle}}
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button clear icon-only (click)="dismiss()">
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding class="notes-content">
+    <!-- <ion-label>Start taking notes!</ion-label> -->
+    <ion-textarea [(ngModel)]="notes" name="description" placeholder="Start taking notes!!" class="notes-container"></ion-textarea>
+    <button ion-button icon-left (click)="saveNotes()">
+      <ion-icon name="checkbox"></ion-icon>
+      Save
+    </button>
+    <button ion-button icon-left class="discard-button">
+        <ion-icon name="trash"></ion-icon>
+        Discard
+    </button>
+</ion-content>

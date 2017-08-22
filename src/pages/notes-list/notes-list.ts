@@ -1,13 +1,9 @@
+import { TakeNotesModal } from './../../modals/take-notes-modal/take-notes-modal';
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { ComponentLabels } from './../../utilities/component-labels/component-lables';
+import { NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 
-/**
- * Generated class for the NotesListPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { ComponentLabels } from './../../utilities/component-labels/component-lables';
+import { DBServices } from './../../providers/db-services/db-services';
 
 @Component({
   selector: 'page-notes-list',
@@ -20,7 +16,9 @@ export class NotesListPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     private alertController : AlertController,
-    private componentLabels : ComponentLabels
+    private componentLabels : ComponentLabels,
+    private modalController : ModalController,
+    private dbService : DBServices
   ) 
   {
 
@@ -30,6 +28,9 @@ export class NotesListPage {
     console.log('ionViewDidLoad NotesListPage');
   }
 
+  /**
+   * @desc show prompt alert to enter title
+   */
   createNotes() {
     console.log("create");
     let titlePrompt = this.alertController.create({
@@ -46,6 +47,12 @@ export class NotesListPage {
           text : this.componentLabels.addNoteAlertLabels.okButton,
           handler : title => {
             console.log(title);
+            titlePrompt.dismiss();
+            // this.navCtrl.push(TakeNotes, {
+            //   title : title.title
+            // })        
+            this.showTakeNotesModal(title.title);   
+            return false;
           }
 
         },
@@ -55,7 +62,15 @@ export class NotesListPage {
       ]
     });
     titlePrompt.present();
-
   }
 
+  showTakeNotesModal(title : string) {
+    let takeNoteModal = this.modalController.create(TakeNotesModal,{
+      title : title
+    })
+    takeNoteModal.onDidDismiss(() => {
+      console.log('Modal dismissed');
+    })
+    takeNoteModal.present();
+  }
 }

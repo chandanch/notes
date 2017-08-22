@@ -1,3 +1,4 @@
+import { DBServices } from './../providers/db-services/db-services';
 
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
@@ -17,7 +18,14 @@ import { PushNotificationServices } from './../providers/push-notification-servi
 export class MyApp {
   rootPage: any = NotesListPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private firebaseService: FirebaseServices, private pushNotifcationServices : PushNotificationServices) {
+  constructor(
+    platform: Platform, 
+    statusBar: StatusBar, 
+    splashScreen: SplashScreen, 
+    private firebaseService: FirebaseServices, 
+    private pushNotifcationServices : PushNotificationServices,
+    private dbService : DBServices
+  ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -25,6 +33,8 @@ export class MyApp {
       //this.firebaseService.initFireBase();
       //this.pushNotifcationServices.registerDevice();
       //this.pushNotifcationServices.recieveNotification();
+      var db = this.dbService.initDB('notes');
+      console.log(db);
     });
   }
 

@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -9,6 +8,8 @@ import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 
 import { MyApp } from './app.component';
 import { NotesListPage } from './../pages/notes-list/notes-list';
+import { DBServices } from '../providers/db-services/db-services';
+import { TakeNotesModal } from './../modals/take-notes-modal/take-notes-modal';
 
 
 const ionicCloudSettings : CloudSettings = {
@@ -32,7 +33,8 @@ const ionicCloudSettings : CloudSettings = {
 @NgModule({
   declarations: [
     MyApp,
-    NotesListPage
+    NotesListPage,
+    TakeNotesModal
   ],
   imports: [
     BrowserModule,
@@ -43,12 +45,14 @@ const ionicCloudSettings : CloudSettings = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    NotesListPage
+    NotesListPage,
+    TakeNotesModal
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DBServices,
   ]
 })
 export class AppModule {}
