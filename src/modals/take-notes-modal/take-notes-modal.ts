@@ -101,14 +101,14 @@ export class TakeNotesModal {
     }
 
     dismiss() {
-        //this.viewController.dismiss();
-        this.dbService.destroyDB().then(
-            response => {
-                console.log(response);
-            },
-            error => {
-                console.log(error);
-            }
-        )
+        this.viewController.dismiss();
+        // this.dbService.destroyDB().then(
+        //     response => {
+        //         console.log(response);
+        //     },
+        //     error => {
+        //         console.log(error);
+        //     }
+        // )
     }
 }
