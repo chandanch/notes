@@ -87,6 +87,9 @@ export class TakeNotesModal {
     }
 
 
+    /**
+     * @desc get the current date
+     */
     getCurrentDate(): string {
         var currentDate = new Date();
         let day = currentDate.getDate();
@@ -95,6 +98,9 @@ export class TakeNotesModal {
         return day + "-" + month + "-" + year;
     }
 
+    /**
+     * @desc get current time
+     */
     getCurrentTime(): string {
         var currentTime = new Date();
         return currentTime.getHours() + ":" + currentTime.getMinutes() + ":" + currentTime.getSeconds();
