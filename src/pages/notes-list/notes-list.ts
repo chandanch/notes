@@ -1,6 +1,6 @@
 import { TakeNotesModal } from './../../modals/take-notes-modal/take-notes-modal';
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ModalController, Platform } from 'ionic-angular';
 
 import { ComponentLabels } from './../../utilities/component-labels/component-lables';
 import { DBServices } from './../../providers/db-services/db-services';
@@ -11,6 +11,7 @@ import { DBServices } from './../../providers/db-services/db-services';
   providers: [ComponentLabels]
 })
 export class NotesListPage {
+  private notesList : Array<Object>;
 
   constructor(
     public navCtrl: NavController, 
@@ -18,14 +19,18 @@ export class NotesListPage {
     private alertController : AlertController,
     private componentLabels : ComponentLabels,
     private modalController : ModalController,
-    private dbService : DBServices
+    private dbService : DBServices,
+    private platform : Platform
   ) 
   {
-
+    this.platform.ready().then(() => {
+      this.getAllNotes();
+    })
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NotesListPage');
+
   }
 
   /**
@@ -70,7 +75,24 @@ export class NotesListPage {
     })
     takeNoteModal.onDidDismiss(() => {
       console.log('Modal dismissed');
+      this.getAllNotes();
     })
     takeNoteModal.present();
+  }
+
+  /**
+   * @desc Get all notes from the db
+   * parse the document array and store all the notes in the notesList.
+   */
+  getAllNotes() {
+    this.dbService.getAllData().then(
+      data => {
+        this.notesList = data.rows;
+        console.log(this.notesList);
+      },
+      error => {
+        console.log('Failed to get all the data');
+      }
+    )
   }
 }

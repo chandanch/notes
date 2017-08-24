@@ -1,9 +1,34 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Your Notes</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
+  <!-- Show notes list -->
+  <ion-card *ngFor="let note of notesList">
+    <ion-card-header class="note-title">
+      {{note.doc.dbData.title}}
+    </ion-card-header>
+    <ion-card-content>
+      <p class="notes">
+        {{ (note.doc.dbData.notes.length > 50) ? (note.doc.dbData.notes | slice: 0:50) + '...' : (note.doc.dbData.notes) }}
+      </p>
+    </ion-card-content>
+    <ion-row>
+      <ion-col width-50>
+          <button ion-button icon-left clear>
+            <ion-icon name="create"></ion-icon>
+            <div>Edit</div>
+          </button>
+      </ion-col>
+      <ion-col width-50>
+          <button ion-button icon-left clear color="danger">
+            <ion-icon name="trash"></ion-icon>
+            <div>Delete</div>
+          </button>
+      </ion-col>      
+    </ion-row>
+  </ion-card>
   <ion-fab right bottom>
     <button ion-fab color="primary" (click)="createNotes()">
       <ion-icon name="add"></ion-icon>

@@ -28,7 +28,7 @@ export class DBServices {
       }
     );
   }
-
+  
   destroyDB() {
     return this.db.destroy();
   }
