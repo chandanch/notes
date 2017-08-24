@@ -73,9 +73,16 @@ export class NotesListPage {
     titlePrompt.present();
   }
 
+  /**
+   * @desc open the take note modal
+   * pass the note title to the modal
+   * set the context as new which indicates a new note and pass it to the modal.
+   * @param title 
+   */
   showTakeNotesModal(title : string) {
     let takeNoteModal = this.modalController.create(TakeNotesModal,{
-      title : title
+      title : title,
+      context : 'new'
     })
     takeNoteModal.onDidDismiss(() => {
       console.log('Modal dismissed');
@@ -133,4 +140,21 @@ export class NotesListPage {
     )
   }
 
+  /**
+   * @desc make changes to the selected note.
+   * pass the notes to the take notes modal
+   * @param noteObject 
+   */
+  editNote(noteObject : any) {
+    console.log(noteObject.doc.dbData.notes);
+    let takeNoteModal = this.modalController.create(TakeNotesModal,{
+      noteObject : noteObject,
+      context : 'edit'
+    })
+    takeNoteModal.onDidDismiss(() => {
+      console.log('Modal dismissed');
+      this.getAllNotes();
+    })
+    takeNoteModal.present();
+  }
 }

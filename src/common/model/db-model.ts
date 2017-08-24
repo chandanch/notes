@@ -1,4 +1,10 @@
 export interface DBModel {
     _id : string;
-    dbData : any;
+    dbData : {
+        title : string,
+        notes : string,
+        date : string,
+        time : string
+    };
+    _rev ? : string
 }
