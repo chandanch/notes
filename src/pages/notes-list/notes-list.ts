@@ -1,14 +1,16 @@
-import { TakeNotesModal } from './../../modals/take-notes-modal/take-notes-modal';
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ModalController, Platform } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ModalController, Platform, ToastController } from 'ionic-angular';
 
 import { ComponentLabels } from './../../utilities/component-labels/component-lables';
 import { DBServices } from './../../providers/db-services/db-services';
+import { Messages } from './../../utilities/messages/messages';
+import { TakeNotesModal } from './../../modals/take-notes-modal/take-notes-modal';
+import { ShowToast } from './../../common/show-toasts';
 
 @Component({
   selector: 'page-notes-list',
   templateUrl: 'notes-list.html',
-  providers: [ComponentLabels]
+  providers: [ComponentLabels, Messages, ShowToast]
 })
 export class NotesListPage {
   private notesList : Array<Object>;
@@ -20,7 +22,10 @@ export class NotesListPage {
     private componentLabels : ComponentLabels,
     private modalController : ModalController,
     private dbService : DBServices,
-    private platform : Platform
+    private platform : Platform,
+    private toastController : ToastController,
+    private messages : Messages,
+    private showToast : ShowToast
   ) 
   {
     this.platform.ready().then(() => {
@@ -30,7 +35,6 @@ export class NotesListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NotesListPage');
-
   }
 
   /**
@@ -95,4 +99,38 @@ export class NotesListPage {
       }
     )
   }
+
+  /**
+   * @desc remove the selected note from the list.
+   * Internally this will remove the document from the pouchdb
+   * In order to remove the document from the pouchdb we will have to specify:
+   *  1. document Id of the document stored in pouchdb
+   *  2. revision Id of the document stored in pouchdb 
+   * @param docId 
+   * @param revId 
+   */
+  removeNote(docId : string, revId : string, noteTitle : string) {
+    this.dbService.removeData(docId, revId).then(
+      response => {
+        this.getAllNotes();
+        console.log('Note deleted', response);
+        // Once the note is deleted successfully show the message to user using toast
+        this.showToast.showToastMessage(
+          this.messages.messages.notesList.deleteNote.successMessage(noteTitle),
+          3000,
+          'bottom'
+        )
+      },
+      error => {
+        console.log('Failed to delete the note', error);
+        // If the deletion of note failed show the failure message to the user using toast
+        this.showToast.showToastMessage(
+          this.messages.messages.notesList.deleteNote.errorMessage(noteTitle),
+          3000,
+          'bottom'
+        )
+      }
+    )
+  }
+
 }

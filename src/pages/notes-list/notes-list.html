@@ -22,7 +22,7 @@
           </button>
       </ion-col>
       <ion-col width-50>
-          <button ion-button icon-left clear color="danger">
+          <button ion-button icon-left clear color="danger" (click)="removeNote(note.doc._id, note.doc._rev, note.doc.dbData.title)">
             <ion-icon name="trash"></ion-icon>
             <div>Delete</div>
           </button>

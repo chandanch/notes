@@ -28,7 +28,11 @@ export class DBServices {
       }
     );
   }
-  
+
+  removeData(docId : string, revId : string) {
+    return this.db.remove(docId, revId);
+  }
+
   destroyDB() {
     return this.db.destroy();
   }

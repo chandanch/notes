@@ -14,6 +14,16 @@ export class Messages {
                     errorMessage : (noteTitle : string) => {
                         return "OOPS!" + noteTitle +"note not saved"
                     }
+                },
+            },
+            notesList : {
+                deleteNote : {
+                    successMessage: (noteTitle: string) => {
+                        return noteTitle + " deleted sucessfully"
+                    },
+                    errorMessage: (noteTitle: string) => {
+                        return "OOPS!" + noteTitle + "couldn't be deleted"
+                    }
                 }
             }
         }
